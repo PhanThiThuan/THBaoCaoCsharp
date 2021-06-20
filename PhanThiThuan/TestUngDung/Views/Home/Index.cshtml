@@ -1,0 +1,24 @@
+﻿@model List<ModelEF.Model.Product>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@foreach (var item in Model)
+{
+    <div class="grid_1_of_4 images_1_of_4">
+        <img src="@Url.Content("~/Img/"+@item.Image)" width="50" height="50" />
+        <div class="discount">
+            <span class="percentage">40%</span>
+        </div>
+        <h2>@item.Name </h2>
+        <p><span class="strike">$438.99</span><span class="price">$403.66</span></p>
+        <div class="button"><span><img src="~/Assets/home/images/cart.jpg" alt="" /><a href="preview-3.html"
+                                                            class="cart-button">Add to Cart</a></span> </div>
+        <div class="button"><span><a href="preview-3.html" class="details">Details</a></span></div>
+    </div>
+    
+  }
+
+
+

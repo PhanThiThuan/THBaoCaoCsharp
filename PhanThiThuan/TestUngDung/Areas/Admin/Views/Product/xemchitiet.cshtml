@@ -1,0 +1,64 @@
+﻿@model ModelEF.Model.Product
+@{
+    ViewBag.Title = "DetailAdmin";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header
+{
+    xem chi tiết sản phẩm
+}
+<div class="col-lg-12 form-group">
+    <table class="table">
+        <tr>
+            <th>
+                Tên sản phẩm
+            </th>
+
+            <th>
+                Đơn giá
+            </th>
+            <th>
+                Định lượng
+            </th>
+            <th>
+                Ảnh
+            </th>
+            <th>
+                Mô Tả
+            </th>
+            <th>
+                Trạng Thái
+            </th>
+            <th>
+                Loại sản phẩm
+            </th>
+        </tr>
+        <tr>
+            <td>
+                @Model.Name
+            </td>
+
+            <td>
+                @Model.UnitCost
+            </td>
+            <td>
+                @Model.Quantity
+            </td>
+            <td>
+                <img src="@Url.Content("~/Img/"+ @Model.Image)" width="50" height="50" />
+            </td>
+            <td>
+                @Model.Description
+            </td>
+            <td>
+                @Model.Status
+            </td>
+            <td>
+                @Model.ProductType
+            </td>
+        </tr>
+    </table>
+
+</div>
+

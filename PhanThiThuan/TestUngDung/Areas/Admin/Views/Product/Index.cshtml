@@ -1,0 +1,129 @@
+﻿@model PagedList.IPagedList<ModelEF.Model.Product>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section header{
+    quản lí sản phẩm
+}
+
+
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="create" style="float:left">
+                        <button class="btn btn-info " onclick="location.href = '/Admin/Product/Create/';">Thêm mới</button>
+                    </div>
+                    @using (Html.BeginForm("Index", "Product", FormMethod.Post))
+                    {
+
+                        <div class="class_search" style="float:right">
+                            <div class="col-md-push-12 " style="margin-bottom: 10px">
+                                <input type="text" name="searchString" value="@ViewBag.SearchString" />
+                                <button type="submit" class="btn btn-secondary "> Tìm kiếm</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <tr>
+                        <th>STT</th>
+                        <th>Cấu trúc</th>
+                        <th>
+                            Tên sản phẩm
+                        </th>
+
+                        <th>
+                            Đơn giá
+                        </th>
+                        <th>
+                            Định lượng
+                        </th>
+                        <th>
+                            Ảnh
+                        </th>
+                        <th>
+                           Mô Tả
+                        </th>
+                        <th>
+                            Trạng Thái
+                        </th>
+                        <th>
+                            Loại sản phẩm
+                        </th>
+                        <th>
+                            Thao tác
+                        </th>
+                        
+                    </tr>
+                    @{
+                        var i = 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr id="row_@item.ID">
+                            <td align="center">@i</td>
+                            <td>
+                                <a href="/Admin/Product/Edit/@item.ID"><i class="fas fa-edit"></i></a> |
+                                @Ajax.ActionLink(" ", "Delete", new { @id = item.ID }, new AjaxOptions
+                           {
+                               Confirm = "Bạn có muốn xoá bản ghi này không?",
+                               OnComplete = "$('#row_" + item.ID + "').remove()",
+                               HttpMethod = "Delete",
+
+                           }, new { @class = "fas fa-trash-alt" })
+
+
+                            </td>
+                            <td>
+                                @item.Name
+                            </td>
+
+                            <td>
+                                @item.UnitCost
+                            </td>
+                            <td>
+                                @item.Quantity
+                            </td>
+                            <td>
+                                @*<img src="@item.Image" width="50" height="50" />*@ 
+                                <img src="@Url.Content("~/Img/"+@item.Image)" width="50" height="50" />
+                            </td>
+                            <td>
+                                @item.Description
+                            </td>
+                            <td>
+                                @item.Status
+                            </td>
+                            <td>
+                                @item.ProductType
+                            </td>
+                            <td>
+                                @*@Ajax.ActionLink (" ", "xemchitiet", new { @id = item.ID }, new AjaxOptions*@
+                                <a href="/Admin/Product/xemchitiet/@item.ID">Xem chi tiết</a>
+                            </td>
+
+                        </tr>
+                        i++;
+                    }
+
+                </table>
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+
+            </div>
+        </div>
+    </div>
+</div>
